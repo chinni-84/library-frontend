@@ -6,14 +6,14 @@ import { Container, Form, Button, Card } from 'react-bootstrap';
 export default function AddBook() {
   const [book, setBook] = useState({ title: '', author: '', status: 'Available', issuedTo: '' });
   const navigate = useNavigate();
-
+  const API_BASE = process.env.REACT_APP_API_URL;
   const handleChange = e => {
     setBook({ ...book, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/api/books', book);
+    await axios.post(`${API_BASE}/api/books`, book);
     navigate('/');
   };
 

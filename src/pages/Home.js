@@ -5,23 +5,22 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [books, setBooks] = useState([]);
-
+  const API_BASE = process.env.REACT_APP_API_URL;
   useEffect(() => {
     fetchBooks();
   }, []);
 
-  const fetchBooks = async () => {
-    const res = await axios.get('http://localhost:5000/api/books');
-    setBooks(res.data);
-  };
+ const fetchBooks = async () => {
+  const res = await axios.get(`${API_BASE}/api/books`);
+  setBooks(res.data);
+};
 
-  const deleteBook = async (id) => {
-    if (window.confirm('Are you sure you want to delete this book?')) {
-      await axios.delete(`http://localhost:5000/api/books/${id}`);
-      fetchBooks();
-    }
-  };
-
+const deleteBook = async (id) => {
+  if (window.confirm('Are you sure you want to delete this book?')) {
+    await axios.delete(`${API_BASE}/api/books/${id}`);
+    fetchBooks();
+  }
+};
   return (
     <Container className="mt-4">
       <Card className="shadow-lg p-4">

@@ -7,9 +7,10 @@ export default function EditBook() {
   const { id } = useParams();
   const [book, setBook] = useState({ title: '', author: '', status: 'Available', issuedTo: '' });
   const navigate = useNavigate();
+  const API_BASE = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/books')
+    axios.get(`${API_BASE}/api/books`)
       .then(res => {
         const found = res.data.find(b => b._id === id);
         if (found) setBook(found);
@@ -22,7 +23,7 @@ export default function EditBook() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/api/books/${id}`, book);
+    await axios.put(`${API_BASE}/api/books/${id}`, book);
     navigate('/');
   };
 
