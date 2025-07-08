@@ -6,9 +6,14 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   const [books, setBooks] = useState([]);
   const API_BASE = process.env.REACT_APP_API_URL;
-  useEffect(() => {
-    fetchBooks();
-  }, []);
+ useEffect(() => {
+  const API_BASE = process.env.REACT_APP_API_URL;
+  console.log('API_BASE =', API_BASE);  // ✅ This line prints your backend URL
+
+  axios.get(`${API_BASE}/api/books`)
+    .then(res => setBooks(res.data))
+    .catch(err => console.error(err));
+}, []);
 
  const fetchBooks = async () => {
   const res = await axios.get(`${API_BASE}/api/books`);
